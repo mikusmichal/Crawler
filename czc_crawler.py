@@ -1,11 +1,8 @@
 import re
 import requests
 import sqlite3
-
-import yaml
-from lxml import html
-
 import db
+from lxml import html
 from crawler import Crawler
 
 
@@ -13,9 +10,6 @@ class CzcCrawler(Crawler):
 
     def __init__(self):
         self.name = 'czc'
-
-        with open('config.yml') as f:
-            self.products = yaml.load(f)['pages']['czc']
 
     def get_price(self, page):
         content = html.fromstring(requests.get(page).content)
@@ -26,3 +20,9 @@ class CzcCrawler(Crawler):
 
     def price_selector(self):
         return '#product-price-and-delivery-section > div.left > div.total-price > span > span.price-vatin'
+
+    def load_products(self):
+        db_in = sqlite3.connect('input_db')
+        cursor = db_in.cursor()
+        return cursor.execute('SELECT product, page FROM items WHERE shop = "czc"')
+

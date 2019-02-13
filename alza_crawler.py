@@ -1,9 +1,8 @@
 import re
 import requests
-
-import yaml
+import sqlite3
+import db
 from lxml import html
-
 from crawler import Crawler
 
 
@@ -11,8 +10,6 @@ class AlzaCrawler(Crawler):
 
     def __init__(self):
         self.name = 'alza'
-        with open('config.yml') as f:
-            self.products = yaml.load(f)['pages']['alza']
 
     def get_price(self, page):
         content = html.fromstring(requests.get(page).content)
@@ -23,3 +20,11 @@ class AlzaCrawler(Crawler):
 
     def price_selector(self):
         return '#prices span.price_withVat'
+
+    def load_products(self):
+        db_in = sqlite3.connect('input_db')
+        cursor = db_in.cursor()
+        return cursor.execute('SELECT product, page FROM items WHERE shop = "alza"')
+
+
+

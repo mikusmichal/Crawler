@@ -9,9 +9,9 @@ from czc_crawler import CzcCrawler
 def crawl():
     start_time = datetime.now()
     czcCrawler = CzcCrawler()
-    # alzaCrawler = AlzaCrawler()
+    alzaCrawler = AlzaCrawler()
     czcCrawler.crawl_site()
-    # alzaCrawler.crawl_site()
+    alzaCrawler.crawl_site()
     print('gathering done, proces finished after' + str(datetime.now() - start_time))
 
 
@@ -22,7 +22,7 @@ def do_stuff():
 def crawl_repeated():
 
     crawl()
-    threading.Timer(60 * 60 * 12, crawl_repeated).start()  # twice per day
+    threading.Timer(60 * 5, crawl_repeated).start()  # twice per day
     # do_stuff()
     # threading.Timer(5, crawl_repeated).start()  # twice per day
 
