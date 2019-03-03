@@ -1,7 +1,6 @@
 import re
 import requests
 import sqlite3
-import db
 from lxml import html
 from crawler import Crawler
 
@@ -25,6 +24,3 @@ class AlzaCrawler(Crawler):
         db_in = sqlite3.connect('input_db')
         cursor = db_in.cursor()
         return cursor.execute('SELECT product, page FROM items WHERE shop = "alza"')
-
-
-

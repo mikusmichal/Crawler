@@ -1,11 +1,6 @@
 import abc
 import datetime
-import sqlite3
-import requests
-from lxml import html
-
 import db
-from lxml.cssselect import CSSSelector
 
 
 class Crawler:
@@ -39,4 +34,3 @@ class Crawler:
     @abc.abstractmethod
     def load_products(self):
         pass
-
